@@ -39,7 +39,7 @@ def handle_data(context, data):
               limit_price=bitfinex_price)
 
 
-def analyze(context):
+def analyze(context, perf):
     # TODO: Next tutorial
     pass
 
@@ -53,4 +53,4 @@ perf = run_algorithm(capital_base=100,
               exchange_name='bitfinex, poloniex',
               data_frequency='minute',
               start=pd.to_datetime('2017-12-12', utc=True),
-              end=pd.to_datetime('2017-12-13', utc=True))
+              end=pd.to_datetime('2017-12-12', utc=True))
