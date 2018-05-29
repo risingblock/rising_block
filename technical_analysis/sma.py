@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from catalyst.exchange.utils.stats_utils import extract_transactions, get_pretty_stats
 import numpy as np
+import talib
 
 
 def initialize(context):
@@ -14,14 +15,15 @@ def initialize(context):
 
 
 def handle_data(context, data):
-    look_back_window = 20
-
+    look_back_window = 100
     # Skip bars until we can calculate absolute momentum
     context.i += 1
     if context.i < look_back_window:
         return
 
     btc_history = data.history(context.asset, 'price', bar_count=look_back_window, frequency='1D')
+    output = talib.SMA(btc_history.values)
+    close_sma = talib.SMA(np.random.random(100))
 
     percentage_change = btc_history.pct_change(look_back_window - 1)[-1] * 100
     price = data.current(context.asset, 'price')
@@ -49,7 +51,7 @@ def analyze(context, perf):
     print('the algo stats:\n{}'.format(stats))
     # Get the base_currency that was passed as a parameter to the simulation
     exchange = list(context.exchanges.values())[0]
-    base_currency = exchange.base_currency.upper()
+    base_currency = exchange.quote_currency.upper()
 
     # First chart: Plot portfolio value using base_currency
     ax1 = plt.subplot(411)
@@ -117,13 +119,13 @@ def analyze(context, perf):
 if __name__ == '__main__':
     run_algorithm(
         analyze=analyze,
-        capital_base=10000,
+        capital_base=1000,
         data_frequency='daily',
         initialize=initialize,
         handle_data=handle_data,
         exchange_name='bittrex',
-        algo_namespace='dual_momentum',
-        base_currency='usd',
+        algo_namespace='momentum',
+        quote_currency='usd',
         live=False,
         start=pd.to_datetime('2017-09-20', utc=True),
         end=pd.to_datetime('2018-03-23', utc=True),
