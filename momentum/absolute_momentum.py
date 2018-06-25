@@ -122,7 +122,7 @@ if __name__ == '__main__':
         handle_data=handle_data,
         exchange_name='bittrex',
         algo_namespace='momentum',
-        base_currency='usd',
+        quote_currency='usd',
         live=False,
         start=pd.to_datetime('2017-09-20', utc=True),
         end=pd.to_datetime('2018-03-23', utc=True),

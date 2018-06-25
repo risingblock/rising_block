@@ -78,5 +78,5 @@ if __name__ == '__main__':
                          exchange_name='bitfinex, poloniex',
                          algo_namespace='arbitrage002',
                          data_frequency='minute',
-                         start=pd.to_datetime('2017-12-06', utc=True),
-                         end=pd.to_datetime('2018-01-15', utc=True))
+                         start=pd.to_datetime('2017-01-05', utc=True),
+                         end=pd.to_datetime('2017-01-13', utc=True))

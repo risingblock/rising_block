@@ -55,6 +55,8 @@ def handle_data(context, data):
     record(btc_price=btc_price, cash=context.portfolio.cash)
 
 
+
+
 def analyze(context, perf):
     stats = get_pretty_stats(perf)
     print('the algo stats:\n{}'.format(stats))
